@@ -14,7 +14,6 @@ public class Partida {
     @Id
     @GeneratedValue
     Integer id = null;
-    String palabra;
     Integer intentos;
     Integer puntos;
     LocalDateTime timestamp;

@@ -1,9 +1,6 @@
 package com.servidores.JuegoPalabras.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -15,7 +12,7 @@ import java.util.List;
 public class Equipo {
     @Id
     @GeneratedValue
-    Integer id = null;
+    Integer id = 0;
     String nombre;
     String badge; //Cambiar por tipo de datos que maneje imagenes
     Integer puntos;

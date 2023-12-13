@@ -9,5 +9,5 @@ public class EquipoNotFoundException extends RuntimeException {
     public EquipoNotFoundException(String nombre) {
         super(nombre + " no existe");
     }
-    public EquipoNotFoundException(Integer id) {super("Equipo con id " + id + " ya existe");}
+    public EquipoNotFoundException(Integer id) {super("Equipo con id " + id + " no existe");}
 }
