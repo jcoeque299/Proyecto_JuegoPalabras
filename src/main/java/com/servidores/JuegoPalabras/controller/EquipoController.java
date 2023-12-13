@@ -38,6 +38,8 @@ public class EquipoController {
         Equipo equipoReemplazar = equipoRepository.findById(id).orElseThrow(() -> new EquipoNotFoundException(id));
         if (equipo.getId() == 0 || equipo.getId().equals(id)) {
             equipo.setId(equipo.getId());
+            return new ResponseEntity<>(equipoRepository.save(equipo), HttpStatus.OK);
+
         }
         if (equipo.getNombre().compareTo(equipoReemplazar.getNombre()) != 0 && equipoRepository.existsByNombre(equipoReemplazar.getNombre())) {
             System.out.println(equipo.getNombre()+equipoReemplazar.getNombre());
@@ -46,8 +48,8 @@ public class EquipoController {
         else {
             equipoRepository.findById(equipo.getId()).orElseThrow(() -> new EquipoNotFoundException(equipo.getId()));
             equipoRepository.deleteById(id);
+            return new ResponseEntity<>(equipoRepository.save(equipo), HttpStatus.OK);
         }
-        return new ResponseEntity<>(equipoRepository.save(equipo), HttpStatus.OK);
     }
 
     @DeleteMapping("/equipos/{id}")
