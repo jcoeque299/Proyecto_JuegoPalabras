@@ -1,15 +1,11 @@
 package com.servidores.JuegoPalabras.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +15,7 @@ public class Jugador {
     Integer id = null;
     String usuario;
     String puntos;
-    Object avatar;
+    String avatar;
 
     @ManyToOne
     @JoinColumn(name = "equipoId")
