@@ -18,4 +18,14 @@ public class PalabrasController {
     public ResponseEntity<?> findAll() {
         return new ResponseEntity<>(palabrasRepository.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/palabras", params = "stringMatch")
+    public ResponseEntity<?> findByContainsString(@RequestParam(defaultValue = "") String stringMatch) {
+        return new ResponseEntity<>(palabrasRepository.findByPalabraContains(stringMatch), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/palabras", params = "stringStartsWith")
+    public ResponseEntity<?> findByStartsWithString(@RequestParam(defaultValue = "") String stringStartsWith) {
+        return new ResponseEntity<>(palabrasRepository.findByPalabraStartsWith(stringStartsWith), HttpStatus.OK);
+    }
 }

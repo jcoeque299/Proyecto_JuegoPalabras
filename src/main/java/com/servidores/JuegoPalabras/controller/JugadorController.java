@@ -4,7 +4,6 @@ import com.servidores.JuegoPalabras.error.JugadorAlreadyExistsException;
 import com.servidores.JuegoPalabras.error.JugadorNotFoundException;
 import com.servidores.JuegoPalabras.model.Jugador;
 import com.servidores.JuegoPalabras.repository.JugadorRepository;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

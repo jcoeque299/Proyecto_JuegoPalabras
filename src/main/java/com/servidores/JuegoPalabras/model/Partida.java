@@ -13,7 +13,7 @@ import java.util.List;
 public class Partida {
     @Id
     @GeneratedValue
-    Integer id = null;
+    Integer id = 0;
     Integer intentos;
     Integer puntos;
     LocalDateTime timestamp;

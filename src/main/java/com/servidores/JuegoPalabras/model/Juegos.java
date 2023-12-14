@@ -15,7 +15,7 @@ import java.util.List;
 public class Juegos {
     @Id
     @GeneratedValue
-    Integer id = null;
+    Integer id;
     String dificultad;
     String descripcion;
     Integer intentosMaximos;

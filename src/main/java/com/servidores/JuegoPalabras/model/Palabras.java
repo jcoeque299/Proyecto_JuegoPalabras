@@ -12,6 +12,6 @@ import lombok.*;
 public class Palabras {
         @Id
         @GeneratedValue
-        Integer id = null;
+        Integer id;
         String palabra;
 }
