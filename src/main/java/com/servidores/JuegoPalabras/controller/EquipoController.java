@@ -24,6 +24,7 @@ public class EquipoController {
 
     @PostMapping("/equipos")
     public ResponseEntity<?> create(@RequestBody Equipo equipo) {
+        //Excepcion si el nombre del equipo o la ID especificada ya existen
         if (equipoRepository.existsByNombre(equipo.getNombre())) {
             throw new EquipoAlreadyExistsException(equipo.getNombre());
         }
@@ -35,21 +36,21 @@ public class EquipoController {
 
     @PutMapping("/equipos/{id}")
     public ResponseEntity<?> update(@RequestBody Equipo equipo, @PathVariable Integer id) {
+        //Excepción si el equipo a editar no existe. Reasignar la misma ID si no se especifica o la especificada es la misma
         Equipo equipoReemplazar = equipoRepository.findById(id).orElseThrow(() -> new EquipoNotFoundException(id));
-        if (equipo.getId() == 0 || equipo.getId().equals(id)) {
-            equipo.setId(equipo.getId());
-            return new ResponseEntity<>(equipoRepository.save(equipo), HttpStatus.OK);
-
-        }
-        if (equipo.getNombre().compareTo(equipoReemplazar.getNombre()) != 0 && equipoRepository.existsByNombre(equipoReemplazar.getNombre())) {
-            System.out.println(equipo.getNombre()+equipoReemplazar.getNombre());
+        //Excepción si el nombre del equipo ya existe y no es el mismo que ya tenía
+        if (equipo.getNombre().compareTo(equipoReemplazar.getNombre()) != 0 && equipoRepository.existsByNombre(equipo.getNombre())) {
             throw new EquipoAlreadyExistsException(equipo.getNombre());
         }
+        if (equipo.getId() == 0 || equipo.getId().equals(id)) {
+            equipo.setId(id);
+        }
+        //Excepción si el equipo a reemplazar no se encuentra
         else {
             equipoRepository.findById(equipo.getId()).orElseThrow(() -> new EquipoNotFoundException(equipo.getId()));
             equipoRepository.deleteById(id);
-            return new ResponseEntity<>(equipoRepository.save(equipo), HttpStatus.OK);
         }
+        return new ResponseEntity<>(equipoRepository.save(equipo), HttpStatus.OK);
     }
 
     @DeleteMapping("/equipos/{id}")

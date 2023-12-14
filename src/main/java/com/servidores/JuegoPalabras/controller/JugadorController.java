@@ -25,24 +25,26 @@ public class JugadorController {
 
     @PostMapping("/jugadores")
     public ResponseEntity<?> create(@RequestBody Jugador jugador) {
-        jugadorRepository.findById(jugador.getId()).orElseThrow(() -> new JugadorAlreadyExistsException(jugador.getId()));
         if (jugadorRepository.existsByUsuario(jugador.getUsuario())) {
             throw new JugadorAlreadyExistsException(jugador.getUsuario());
+        }
+        if (jugadorRepository.existsById(jugador.getId())) {
+            throw new JugadorAlreadyExistsException(jugador.getId());
         }
         return new ResponseEntity<>(jugadorRepository.save(jugador), HttpStatus.CREATED);
     }
 
     @PutMapping("/jugadores/{id}")
     public ResponseEntity<?> update(@RequestBody Jugador jugador, @PathVariable Integer id) {
-        if (jugador.getId() == null || jugador.getId().equals(id)) {
-            jugadorRepository.findById(id).orElseThrow(() -> new JugadorNotFoundException(jugador.getId()));
-            jugador.setId(id);
-        }
-        if (jugadorRepository.existsByUsuario(jugador.getUsuario())) {
+        Jugador jugadorReemplazar = jugadorRepository.findById(id).orElseThrow(() -> new JugadorNotFoundException(id));
+        if (jugador.getUsuario().compareTo(jugadorReemplazar.getUsuario()) != 0 && jugadorRepository.existsByUsuario(jugador.getUsuario())) {
             throw new JugadorAlreadyExistsException(jugador.getUsuario());
         }
+        if (jugador.getId() == 0 || jugador.getId().equals(id)) {
+            jugador.setId(id);
+        }
         else {
-            jugadorRepository.findById(jugador.getId()).orElseThrow(() -> new JugadorNotFoundException(id));
+            jugadorRepository.findById(jugador.getId()).orElseThrow(() -> new JugadorNotFoundException(jugador.getId()));
             jugadorRepository.deleteById(id);
         }
         return new ResponseEntity<>(jugadorRepository.save(jugador), HttpStatus.OK);

@@ -12,7 +12,7 @@ import java.util.List;
 public class Jugador {
     @Id
     @GeneratedValue
-    Integer id = null;
+    Integer id = 0;
     String usuario;
     String puntos;
     String avatar;
