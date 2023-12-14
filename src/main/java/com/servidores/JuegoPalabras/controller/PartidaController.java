@@ -43,7 +43,7 @@ public class PartidaController {
         return new ResponseEntity<>(partidaRepository.save(partida), HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/partidas/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         partidaRepository.findById(id).orElseThrow(() -> new PartidaNotFoundException(id));
         partidaRepository.deleteById(id);
